@@ -56,7 +56,7 @@ export class FormSComponent implements OnInit {
   }
 
   deleteAddressGroup(index?: number) {
-    console.log(this.formArrayVal)
+    console.log(this.form.getRawValue())
   }
 
 }

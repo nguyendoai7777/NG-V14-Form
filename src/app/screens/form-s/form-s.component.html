@@ -1,10 +1,14 @@
 <div [formGroup]="form">
   <div *ngFor="let addressGroup of formArrayVal.controls; index as i" [formGroup]="$any(addressGroup)" style="padding: 7px; margin-top: 5px; border: 1px solid deeppink;">
-    <div style="padding-bottom: 5px">
+    <div style="padding-bottom: 5px" *ngIf="inputType[i] !== 'radio'; else radio">
       street
-      <input  formControlName="name" [attr.type]="inputType[i]">
+      <input name="name" formControlName="name" [attr.type]="inputType[i]">
     </div>
-
+    <ng-template #radio>
+      Female <input value="0" name="name" formControlName="name" type="radio">
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      Male <input value="1" name="name" formControlName="name" type="radio">
+    </ng-template>
     <select formControlName="age" (change)="getIndex(i)">
       <option *ngFor="let opt of options" [value]="opt.value">{{opt.label}}</option>
     </select>
