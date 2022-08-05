@@ -12,7 +12,7 @@ export class ArticleService {
   get articles$() {
     return  of<Article[]>([
       {title: 'T 1', body: 'lorem ipsum dy', slug: 't-1'},
-      {title: 'T 2', body: 'lorem ipsum dy lorem ipsum', slug: 't-2'},
+      {title: 'T 2', body: 'lorem ipsum dy lorem ipsum kho hieu vai dai', slug: 't-2'},
     ]).pipe(
       shareReplay(1)
     );

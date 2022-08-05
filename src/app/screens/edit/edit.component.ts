@@ -1,10 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import { filter, map, Observable, of, pluck, switchMap, take } from 'rxjs';
+import { filter, map, Observable, of, pluck, shareReplay, switchMap, take } from 'rxjs';
 import { Form, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { ArticleService } from '../../services/article.service';
 import { Article } from '../../model/model';
 import { CheckDeActivate } from '../../model/check-deactivate.model';
+
+interface RouteParams {
+  slug: string;
+}
 
 interface FormBuilderProps {
   title: FormControl<string>;
@@ -51,34 +55,33 @@ export class EditComponent implements OnInit, CheckDeActivate {
       }
     })*/
 
+
     this.form$ = this.route.params.pipe(
-      map(e => e['slug']),
+      map((x) => (x as RouteParams)?.slug),
       switchMap(slug => this.articleService.getArticle(slug)),
       filter(article => !!article),
-    // @ts-ignore
-      switchMap(article => of(this.initForm(article)))
+      switchMap(article => of(this.initForm(article))),
+      shareReplay(1)  // cache value to emit for next subscribe
     )
   }
 
-  private initForm(article: Article) {
-    const form = this.fb.nonNullable.group({
-      body: [article!.body, Validators.required],
-      title: [article!.title]
-    })
+  private initForm(article?: Article): FormGroup<FormBuilderProps> {
+    let form;
+    if(article) {
+      form = this.fb.nonNullable.group({
+        body: [article!.body + 'j vay'],
+        title: [article!.title]
+      })
+    } else {
+      form = this._default;
+    }
     this.initialForm = form.getRawValue();
     return form;
   }
   checkDeActivate(): Observable<boolean> {
     let formValue = {};
-    this.form$.pipe(
-      take(1),
-    ).subscribe({next: form => {
-        formValue = form.getRawValue()
-     }
-    })
-    console.log(formValue, this.initialForm)
+    this.form$.pipe(take(1)).subscribe( form => formValue = form.getRawValue());
     const edited = JSON.stringify(this.initialForm) !== JSON.stringify(formValue);
-    // @ts-ignore
-    return of(!edited || alert('are you sure quit when not save yet'));
+    return of(!edited || confirm('are you sure quit when not save yet'));
   }
 }
