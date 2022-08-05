@@ -1,8 +1,16 @@
 <div [formGroup]="form">
-  <div *ngFor="let addressGroup of formArrayVal.controls; index as i" [formGroup]="$any(addressGroup)" style="padding: 7px; margin-top: 5px; border: 1px solid deeppink;">
+  <div
+    *ngFor="let addressGroup of formArrayVal.controls; index as i"
+    [formGroup]="$any(addressGroup)"
+    style="padding: 7px; margin-top: 5px; border: 1px solid deeppink;">
     <div style="padding-bottom: 5px">
       street
-      <input  formControlName="name" [attr.type]="inputType[i]">
+      <ng-container *ngIf="inputType[i] === 'radio'; else other">
+        Female<input type="radio" name="name" value="0" formControlName="name">
+        &nbsp;&nbsp;&nbsp;&nbsp;
+        Male<input type="radio" name="name" value="1" formControlName="name">
+      </ng-container>
+      <ng-template #other><input  formControlName="name" [attr.type]="inputType[i]"></ng-template>
     </div>
 
     <select formControlName="age" (change)="getIndex(i)">
