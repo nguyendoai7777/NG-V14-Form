@@ -1,0 +1,14 @@
+<p>home works!</p>
+
+<a routerLink="child">Goto child</a>
+<ul>
+  <li *ngFor="let x of (articles$ | async)" style="padding: 10px; border: 1px solid deeppink; margin-bottom: 12px">
+
+    <a [routerLink]="['/', x.slug]">
+      <h2 style="margin: 0;">{{x.title}}</h2>
+      <div>{{x.body}}</div>
+    </a>
+    <a [routerLink]="['/', x.slug, 'edit']">Edit</a>
+  </li>
+</ul>
+<router-outlet></router-outlet>

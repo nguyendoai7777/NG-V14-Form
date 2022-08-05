@@ -1,0 +1,32 @@
+@use "src/assets/func" as function;
+
+.rounded {
+  @include function.rounded;
+}
+.d-btn {
+  border: none;
+  background: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  span:first-child {
+    user-select: none;
+    pointer-events: none;
+  }
+}
+.rp-btn {
+  padding: 6px 12px;
+  background: deeppink;
+  border-radius: 4px;
+  color: #fff;
+  cursor: pointer;
+}
+
+.d-ripple-effect {
+  position: absolute;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+
+}
+
