@@ -1,10 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Form, FormArray, FormBuilder, FormControl, FormGroup, UntypedFormGroup } from '@angular/forms';
-import { Observable } from 'rxjs';
-
-interface FormComponentGlobal {
-
-}
+import { FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
 
 interface FormArrayInstance {
   instance: FormArray<FormGroup<FormProps>>;
@@ -22,7 +17,7 @@ interface FormProps {
   styleUrls: ['./form-s.component.scss']
 })
 export class FormSComponent implements OnInit {
-  form: FormGroup<FormArrayInstance>;
+  form!: FormGroup<FormArrayInstance>;
   inputType: string[] = []
   options = [
     { label: 'Name', value: 'text' },
@@ -30,36 +25,34 @@ export class FormSComponent implements OnInit {
     { label: 'Age', value: 'number' },
     { label: 'Gender', value: 'radio' },
   ];
-  instance =  this.fb.nonNullable.group<FormProps>({
-    name: this.fb.nonNullable.control(''),
-    age: this.fb.nonNullable.control('text')
-  });
-  currentIndexChange!: number;
-  constructor(private fb: FormBuilder) {
-    this.form = fb.nonNullable.group<FormArrayInstance>({
-     instance: (this.fb.nonNullable.array<FormProps>([])) as unknown as FormArray<FormGroup<FormProps>>
-    });
-  }
+  constructor(private fb: FormBuilder) {}
 
   ngOnInit() {
-    this.form.valueChanges.subscribe(console.log)
+    this.form = new FormGroup<FormArrayInstance>({
+      instance: new FormArray<FormGroup<FormProps>>([])
+    });
+    console.log(this.form)
   }
 
   getIndex(index: number) {
-    // this.inputType[index] = (this.form.get('instance') as FormGroup)?.['controls'][index]?.get('age')?.value; without typing
-    this.inputType[index] = this.form?.controls?.instance?.controls[index]?.controls?.age?.value
-    this.currentIndexChange = index;
+    this.inputType[index] = this.form?.controls?.instance?.controls[index]?.controls?.age?.value;
+
   }
 
   addNewAddressGroup() {
     (this.form.get('instance') as FormArray).push(
-     this.instance
+      new FormGroup<FormProps>({
+        name: new FormControl('', {nonNullable: true}),
+        age:  new FormControl('text', {nonNullable: true}),
+      })
     );
     this.inputType.push('text')
+    console.log(this.formArrayVal )
   }
 
   get formArrayVal() {
-    return this.form.controls?.['instance'] as FormArray;
+    // return this.form.controls?.['instance'] as FormArray;
+    return this.form.controls?.['instance'].controls as FormGroup<FormProps>[];
   }
 
   deleteAddressGroup(index?: number) {

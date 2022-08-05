@@ -1,6 +1,6 @@
 <div [formGroup]="form">
   <div
-    *ngFor="let addressGroup of formArrayVal.controls; index as i"
+    *ngFor="let addressGroup of formArrayVal; index as i"
     [formGroup]="$any(addressGroup)"
     style="padding: 7px; margin-top: 5px; border: 1px solid deeppink;">
     <div style="padding-bottom: 5px">
@@ -17,6 +17,7 @@
       <option *ngFor="let opt of options" [value]="opt.value">{{opt.label}}</option>
     </select>
     <button (click)="deleteAddressGroup()" >Delete - {{i}}</button>
+    <pre>{{addressGroup.getRawValue() | json}}</pre>
   </div>
 </div>
 
