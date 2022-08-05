@@ -3,10 +3,15 @@ import { RouterModule, Routes } from '@angular/router';
 import { ArticleDetailComponent } from './screens/home/article-detail/article-detail.component';
 import { ArticleGuard } from './guard/article.guard';
 import { EditComponent } from './screens/edit/edit.component';
+import { FormSComponent } from './screens/form-s/form-s.component';
 
 const routes: Routes = [
   { path: 'home', loadChildren: () => import('./screens/home/home.module').then(m => m.HomeModule) },
   { path: 'child', canActivate: [ArticleGuard], loadChildren: () => import('./screens/child/child.module').then(m => m.ChildModule)},
+  {
+    path: 'form',
+    component: FormSComponent
+  },
   {
     path: ':slug',
     canActivateChild: [ArticleGuard],
@@ -22,6 +27,7 @@ const routes: Routes = [
       }
     ]
   },
+
 
 ];
 

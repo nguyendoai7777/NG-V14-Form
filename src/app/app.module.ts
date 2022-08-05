@@ -8,6 +8,7 @@ import { DRippleDirective } from './d-ripple.directive';
 import { ArticleDetailComponent } from './screens/home/article-detail/article-detail.component';
 import { EditComponent } from './screens/edit/edit.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { FormSComponent } from './screens/form-s/form-s.component';
 
 
 @NgModule({
@@ -16,6 +17,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     ArticleDetailComponent,
     DRippleDirective,
     EditComponent,
+    FormSComponent,
   ],
   imports: [
     BrowserModule,
