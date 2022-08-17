@@ -9,6 +9,9 @@ import { ArticleDetailComponent } from './screens/home/article-detail/article-de
 import { EditComponent } from './screens/edit/edit.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FormSComponent } from './screens/form-s/form-s.component';
+import { LinkPreviewComponent } from './screens/link-preview/link-preview.component';
+import { HttpClientModule } from '@angular/common/http';
+import { TypeFormComponent } from './screens/type-form/type-form.component';
 
 
 @NgModule({
@@ -18,12 +21,15 @@ import { FormSComponent } from './screens/form-s/form-s.component';
     DRippleDirective,
     EditComponent,
     FormSComponent,
+    LinkPreviewComponent,
+    TypeFormComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     AppbarComponent,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

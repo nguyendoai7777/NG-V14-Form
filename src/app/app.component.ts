@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
 import { ComponentStore } from '@ngrx/component-store';
-import { concatMap, exhaustMap, filter, fromEvent, interval, mergeMap, reduce, scan, startWith, take, tap } from 'rxjs';
+import { concatMap, exhaustMap, filter, fromEvent, interval, mergeMap, of, reduce, scan, startWith, take, tap } from 'rxjs';
 import { AppbarComponent } from './appbar/appbar.component';
 import { LoadingService } from './services/loading.service';
+import { typeCheck } from 'utils';
 
 interface AppState {
   isActive: boolean;
@@ -21,6 +22,7 @@ export class AppComponent {
     scan((acc, e) => acc + 1, 0),
     startWith(0)
   )
+  f = of()
 
   loading = false;
 
@@ -36,6 +38,8 @@ export class AppComponent {
   }
 
   ngOnInit(): void {
+    const tc = typeCheck(1);
+    console.log('check: ', tc)
   /*  console.log(this.loadingService)
      fromEvent(document, 'click').pipe(
       tap(() => {

@@ -4,6 +4,8 @@ import { ArticleDetailComponent } from './screens/home/article-detail/article-de
 import { ArticleGuard } from './guard/article.guard';
 import { EditComponent } from './screens/edit/edit.component';
 import { FormSComponent } from './screens/form-s/form-s.component';
+import { LinkPreviewComponent } from './screens/link-preview/link-preview.component';
+import { TypeFormComponent } from './screens/type-form/type-form.component';
 
 const routes: Routes = [
   { path: 'home', loadChildren: () => import('./screens/home/home.module').then(m => m.HomeModule) },
@@ -11,6 +13,14 @@ const routes: Routes = [
   {
     path: 'form',
     component: FormSComponent
+  },
+  {
+    path: 'lpv',
+    component: LinkPreviewComponent
+  },
+  {
+    path: 'tp',
+    component: TypeFormComponent
   },
   {
     path: ':slug',
